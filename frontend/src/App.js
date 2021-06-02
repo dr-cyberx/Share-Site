@@ -1,10 +1,13 @@
+import React from 'react';
+import {Route} from 'react-router-dom';
+import Users from './users/pages/Users'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      Hello world
-    </div>
+    <>
+      <Route path="/" exact component={Users} />
+    </>
   );
 }
 
