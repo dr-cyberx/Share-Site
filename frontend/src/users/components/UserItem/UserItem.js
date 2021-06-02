@@ -1,11 +1,11 @@
 import React from 'react';
 import './UserItem.css';
 
-const UserItem = () => {
+const UserItem = ({ key, id, image, name, placeCount }) => {
   return (
-    <div>
-      
-    </div>
+    <li className="user-item">
+
+    </li>
   )
 }
 
