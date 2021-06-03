@@ -23,6 +23,7 @@ const MainNavigation = () => {
     }
     <SideDrawer
       show={isDrawerOpen}
+      onClick={CloseDrawer}
     >
       <nav className="main-navigation__drawer-nav ">
         <NavLinks />
