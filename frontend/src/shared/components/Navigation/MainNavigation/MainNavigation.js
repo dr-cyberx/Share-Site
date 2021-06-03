@@ -3,24 +3,31 @@ import { Link } from 'react-router-dom';
 import './MainNavigation.css';
 import MainHeader from '../MainHeader/MainHeader';
 import SideDrawer from '../SideDrawer/SideDrawer';
+import Backdrop from '../../UIElements/Backdrop';
 import NavLinks from '../NavLinks/NavLinks';
 
 const MainNavigation = () => {
   const [isDrawerOpen, setisDrawerOpen] = useState(false);
 
   const handleDrawer = () => {
-    setisDrawerOpen(previousdawer => !previousdawer)
+    setisDrawerOpen(true)
+  }
+
+  const CloseDrawer = () => {
+    setisDrawerOpen(false)
   }
 
   return (<>
     {
-      isDrawerOpen &&
-      <SideDrawer>
-        <nav className="main-navigation__drawer-nav ">
-          <NavLinks />
-        </nav>
-      </SideDrawer>
+      isDrawerOpen && <Backdrop onClick={CloseDrawer} />
     }
+    <SideDrawer
+      show={isDrawerOpen}
+    >
+      <nav className="main-navigation__drawer-nav ">
+        <NavLinks />
+      </nav>
+    </SideDrawer>
 
     <MainHeader>
       <button className="main-navigation__menu-btn" onClick={handleDrawer}>
