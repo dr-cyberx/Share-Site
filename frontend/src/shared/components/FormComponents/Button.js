@@ -15,6 +15,7 @@ const Button = props => {
       </a>
     );
   }
+  
   if (props.to) {
     return (
       <Link
@@ -27,6 +28,7 @@ const Button = props => {
       </Link>
     );
   }
+
   return (
     <button
       className={`button button--${props.size || 'default'} ${props.inverse &&
