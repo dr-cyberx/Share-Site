@@ -1,6 +1,9 @@
 import React from 'react'
 import {useParams} from 'react-router-dom';
 
+import Input from '../../shared/components/FormComponents/Input';
+import Button from '../../shared/components/FormComponents/Button'
+
 const DUMMY_PLACES = [
   {
     id: 'p1',
@@ -31,10 +34,20 @@ const DUMMY_PLACES = [
 const UpdatePlace = () => {
   const placeId = useParams.placeId;
 
+  const identifiesPlace = DUMMY_PLACES.find(d => d.id === placeId);
+
+  if(!identifiesPlace){
+    return(
+      <div className="cener">
+        <h1>No place to edit</h1>
+      </div>
+    )
+  }
+
   return (
-    <h1>
+    <form>
       update Place
-    </h1>
+    </form>
   )
 }
 
