@@ -52,7 +52,7 @@ const UpdatePlace = () => {
 
   const placeUpdateSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formState)
+    console.log(formState.inputs)
   }
 
   if (!identifiesPlace) {
