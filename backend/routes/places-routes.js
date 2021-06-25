@@ -1,51 +1,15 @@
 const express = require('express');
 
+const PlaceController = require('../controllers/places-controllers');
+
+
+
 const router = express.Router();
 
-const DUMMY_PLACES = [
-  {
-    id: 'p1',
-    title: 'Empire state Building',
-    description: 'One of the most famous sky scraper in the world',
-    imageUrl: 'https://static.toiimg.com/thumb/71579199.cms?resizemode=75&width=1200&height=900',
-    address: '20 W 34th St, New York, NY 10001, United States',
-    location: {
-      lat: '40.7484445',
-      lng: '-73.9878531'
-    },
-    createrId: 'u1'
-  },
-  {
-    id: 'p2',
-    title: 'Emp. state Building',
-    description: 'One of the most famous sky scraper in the world',
-    imageUrl: 'https://static.toiimg.com/thumb/71579199.cms?resizemode=75&width=1200&height=900',
-    address: '20 W 34th St, New York, NY 10001, United States',
-    location: {
-      lat: '40.7484445',
-      lng: '-73.9878531'
-    },
-    createrId: 'u2'
-  },
-]
+const { getPlaceById, getPlaceByUserId } = PlaceController;
 
-router.get('/:pid', (req, res) => {
-  const placeId = req.params.pid;
-  const place = DUMMY_PLACES.find(p => p.id === placeId)
-  if (!place) {
-    return res.status(404).json({ message: 'Sorry place not Found!' })
-  }
-  res.json({ place })
-});
+router.get('/:pid', getPlaceById);
 
-router.get('/users/:uid', (req, res) => {
-  const userId = req.params.uid;
-  const place = DUMMY_PLACES.find(p => p.createrId === userId);
-
-  if (!place) {
-    return res.status(404).json({ message: 'Sorry place not found!' })
-  }
-  res.json({ place })
-})
+router.get('/users/:uid', getPlaceByUserId)
 
 module.exports = router;
