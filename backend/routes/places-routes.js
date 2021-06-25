@@ -31,8 +31,21 @@ const DUMMY_PLACES = [
 
 router.get('/:pid', (req, res) => {
   const placeId = req.params.pid;
-  const place = DUMMY_PLACES.find(p=> p.id === placeId)
-  res.json({place})
+  const place = DUMMY_PLACES.find(p => p.id === placeId)
+  if (!place) {
+    return res.status(404).json({ message: 'Sorry place not Found!' })
+  }
+  res.json({ place })
+});
+
+router.get('/users/:uid', (req, res) => {
+  const userId = req.params.uid;
+  const place = DUMMY_PLACES.find(p => p.createrId === userId);
+
+  if (!place) {
+    return res.status(404).json({ message: 'Sorry place not found!' })
+  }
+  res.json({ place })
 })
 
 module.exports = router;
