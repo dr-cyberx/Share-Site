@@ -10,6 +10,6 @@ const { getPlaceById, getPlaceByUserId } = PlaceController;
 
 router.get('/:pid', getPlaceById);
 
-router.get('/users/:uid', getPlaceByUserId)
+router.get('/users/:uid', getPlaceByUserId);
 
 module.exports = router;
