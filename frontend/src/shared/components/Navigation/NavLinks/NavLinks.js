@@ -37,6 +37,11 @@ const NavLinks = () => {
           </NavLink>
         </li>
       }
+      {
+        isLoggedIn && <li>
+          <button onClick={logout}>logout</button>
+        </li>
+      }
 
     </ul>
   )
