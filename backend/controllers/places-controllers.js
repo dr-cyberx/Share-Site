@@ -56,5 +56,10 @@ const getPlaceByUserId = (req, res, next) => {
   res.json({ place })
 }
 
+const createPlace = (req, res, next) => {
+  const { title, description, coordinates, address, creator } = req.body;
+}
+
 exports.getPlaceById = getPlaceById;
 exports.getPlaceByUserId = getPlaceByUserId;
+exports.createPlace = createPlace;
