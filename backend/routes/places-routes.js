@@ -3,8 +3,6 @@ const { check } = require('express-validator');
 
 const PlaceController = require('../controllers/places-controllers');
 
-
-
 const router = express.Router();
 
 const {
