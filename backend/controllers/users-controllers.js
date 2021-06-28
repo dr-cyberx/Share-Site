@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
+const { validationResult } = require('express-validator');
 const HttpErrors = require('../models/Http-errors');
 
 const DUMMY_USERS = [
@@ -26,6 +27,11 @@ const login = (req, res, next) => {
 }
 
 const signup = (req, res, next) => {
+  const signupError = validationResult(req);
+  if(!signupError.isEmpty()){
+    console.log(signupError)
+    throw new HttpErrors('please check your entered field there might be some error ', 422)
+  }
   const { name, email, password } = req.body;
 
   const newUser = {
@@ -42,4 +48,4 @@ const signup = (req, res, next) => {
 
 exports.getUsers = getUsers;
 exports.login = login;
-exports.signup = signup; 
+exports.signup = signup;

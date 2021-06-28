@@ -1,5 +1,6 @@
-const HttpErrors = require('../models/Http-errors');
+const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
+const HttpErrors = require('../models/Http-errors');
 
 
 let DUMMY_PLACES = [
@@ -58,6 +59,11 @@ const getPlacesByUserId = (req, res, next) => {
 }
 
 const createPlace = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log("hello",errors.errors[0].param);
+    throw new HttpErrors(`${errors.errors[0].param} should not be empty `, 422);
+  }
   const { title, description, coordinates, address, creatorId } = req.body;
   const createdPlace = {
     id: uuidv4(),
@@ -74,6 +80,10 @@ const createPlace = (req, res, next) => {
 }
 
 const updatePlace = (req, res, next) => {
+  const inputErrors = validationResult(req);
+  if(!inputErrors.isEmpty()){
+    throw new HttpErrors(`${inputErrors.errors[0].param} should not be empty `, 422)
+  }
   const { title, description } = req.body;
   const placeId = req.params.pid;
 
