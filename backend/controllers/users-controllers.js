@@ -29,7 +29,6 @@ const login = (req, res, next) => {
 const signup = (req, res, next) => {
   const signupError = validationResult(req);
   if(!signupError.isEmpty()){
-    console.log(signupError)
     throw new HttpErrors('please check your entered field there might be some error ', 422)
   }
   const { name, email, password } = req.body;

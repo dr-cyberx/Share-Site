@@ -18,7 +18,6 @@ const PlaceItem = ({ image, title, address, description, id }) => {
   };
   const confirmDeleteHandler = () => {
     setShowConfirmModal(false)
-    console.log("deleting!!!")
   };
 
   const openMaphandler = () => setShowMap(true);

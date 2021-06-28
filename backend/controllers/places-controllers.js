@@ -61,7 +61,6 @@ const getPlacesByUserId = (req, res, next) => {
 const createPlace = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log("hello",errors.errors[0].param);
     throw new HttpErrors(`${errors.errors[0].param} should not be empty `, 422);
   }
   const { title, description, coordinates, address, creatorId } = req.body;
