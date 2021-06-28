@@ -5,7 +5,7 @@ const DUMMY_USERS = [
   {
     id: 'u1',
     name: 'Neil willson',
-    email: 'test1@gamil.com',
+    email: 'test1@gmail.com',
     password: 'test1'
   }
 ]
@@ -42,4 +42,4 @@ const signup = (req, res, next) => {
 
 exports.getUsers = getUsers;
 exports.login = login;
-exports.signup = signup;
+exports.signup = signup; 
