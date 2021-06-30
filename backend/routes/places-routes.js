@@ -1,9 +1,9 @@
-const express = require('express');
+const { Router } = require('express');
 const { check } = require('express-validator');
 
 const PlaceController = require('../controllers/places-controllers');
 
-const router = express.Router();
+const router = Router(); 
 
 const {
   getPlaceById,

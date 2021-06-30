@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const placesRoutes = require('./routes/places-routes');
 const usersRoutes = require('./routes/users-routes');
@@ -28,6 +29,13 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500).json({ message: error.message || 'An unknown Error occured' })
 })
 
-app.listen(port, hostname, () => {
-  console.log(`The backend Server is running at http://${hostname}:${port}`)
-});
+mongoose
+  .connect(``)
+  .then(()=>{
+    app.listen(port, hostname, () => {
+      console.log(`The backend Server is running at http://${hostname}:${port}`)
+    });
+  })  
+  .catch((error)=>{
+    console.log("can't connect to db")
+  })
