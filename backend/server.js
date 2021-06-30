@@ -30,12 +30,12 @@ app.use((error, req, res, next) => {
 })
 
 mongoose
-  .connect(``)
+  .connect("mongodb+srv://drcyberx:drcyberx@cluster0.yyra3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{ useUnifiedTopology: true, useNewUrlParser: true })
   .then(()=>{
     app.listen(port, hostname, () => {
       console.log(`The backend Server is running at http://${hostname}:${port}`)
-    });
+    })
   })  
   .catch((error)=>{
-    console.log("can't connect to db")
+    console.log("can't connect to db", error)
   })
