@@ -1,5 +1,7 @@
 const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
+
+const Place = require('../models/place');
 const HttpErrors = require('../models/Http-errors');
 
 
@@ -58,29 +60,37 @@ const getPlacesByUserId = (req, res, next) => {
   res.json({ places })
 }
 
-const createPlace = (req, res, next) => {
+const createPlace = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new HttpErrors(`${errors.errors[0].param} should not be empty `, 422);
   }
   const { title, description, coordinates, address, creatorId } = req.body;
-  const createdPlace = {
-    id: uuidv4(),
+  const createdPlace = new Place({
     title,
     description,
     location: coordinates,
+    image: 'https://images.unsplash.com/photo-1555109307-f7d9da25c244?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZW1waXJlJTIwc3RhdGUlMjBidWlsZGluZ3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
     address,
     creatorId
-  };
+  })
 
-  DUMMY_PLACES.push(createdPlace);
+  try {
+    await createdPlace.save();
+  } catch (err) {
+    const error = new HttpErrors(
+      'Creating place failed',
+      500
+    )
+    return next(error);
+  }
 
   res.status(201).json({ place: createdPlace });
 }
 
 const updatePlace = (req, res, next) => {
   const inputErrors = validationResult(req);
-  if(!inputErrors.isEmpty()){
+  if (!inputErrors.isEmpty()) {
     throw new HttpErrors(`${inputErrors.errors[0].param} should not be empty `, 422)
   }
   const { title, description } = req.body;
@@ -98,7 +108,7 @@ const updatePlace = (req, res, next) => {
 
 const deletePlace = (req, res, next) => {
   const placeId = req.params.pid;
-  if(!DUMMY_PLACES.find(p => p.id === placeId)){
+  if (!DUMMY_PLACES.find(p => p.id === placeId)) {
     throw new HttpErrors('no places are found with this id ', 404)
   }
   DUMMY_PLACES = DUMMY_PLACES.filter(p => p.id !== placeId);
