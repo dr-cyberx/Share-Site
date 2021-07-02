@@ -32,7 +32,7 @@ let DUMMY_PLACES = [
   },
 ]
 
-const getPlaceById = async (req, res) => {
+const getPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
 
   let place;
