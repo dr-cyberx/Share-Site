@@ -7,19 +7,20 @@ const getUsers = async (req, res, next) => {
   res.json({ users: DUMMY_USERS });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
   let existingUser;
 
   try {
-    existingUser = Users.find({ email: email });
+    existingUser = await Users.find({ email: email });
+    
   } catch (err) {
-    const error = new HttpsError("could not find user!");
+    const error = new HttpErrors("could not find user!", 404);
     return next(error);
   }
 
-  if (!existingUser || existingUser.password !== password) {
-    const error = new HttpsError("Invalid login credential", 401);
+  if (!existingUser || existingUser[0].password !== password) {
+    const error = new HttpErrors("Invalid login credential", 401);
     return next(error);
   }
 
@@ -36,18 +37,19 @@ const signup = async (req, res, next) => {
   }
   const { name, email, password, image, places } = req.body;
 
-  const newUser = {
+  const newUser = new Users({
     name,
     email,
     password,
     image,
     places,
-  };
+  });
 
   try {
-     await Users.save(newUser);
+     await newUser.save(newUser);
   } catch (err) {
-    const error = new HttpsError("failed to sign up", 400);
+    const error = new HttpErrors("failed to sign up", 400);
+    return next(error);
   }
 
   res
