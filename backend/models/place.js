@@ -24,8 +24,9 @@ const placeSchema = new Schema({
     lng: { type: Number, required: true }
   },
   creatorId: {
-    type: String,
-    required: true
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref:'User'
   }
 });
 
