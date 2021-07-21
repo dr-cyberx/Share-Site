@@ -35,13 +35,13 @@ const signup = async (req, res, next) => {
       422
     );
   }
-  const { name, email, password, image, places } = req.body;
+  const { name, email, password, places } = req.body;
 
   const newUser = new Users({
     name,
     email,
     password,
-    image,
+    image:"https://phantom-marca.unidadeditorial.es/6b6ff14954a49532a9f7712e50a8d5df/resize/1320/f/jpg/assets/multimedia/imagenes/2020/12/09/16075352646388.jpg",
     places,
   });
 
