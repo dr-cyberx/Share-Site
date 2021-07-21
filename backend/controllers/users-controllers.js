@@ -12,6 +12,7 @@ const getUsers = async (req, res, next) => {
       "can't find user please try again later!",
       500
     );
+    return next(error);
   }
 
   res.json({ users: allUser.map((user) => user.toObject({ getters: true })) });
@@ -44,7 +45,7 @@ const signup = async (req, res, next) => {
       422
     );
   }
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
 
   const newUser = new Users({
     name,
@@ -52,7 +53,7 @@ const signup = async (req, res, next) => {
     password,
     image:
       "https://phantom-marca.unidadeditorial.es/6b6ff14954a49532a9f7712e50a8d5df/resize/1320/f/jpg/assets/multimedia/imagenes/2020/12/09/16075352646388.jpg",
-    places,
+    places:[],
   });
 
   try {
