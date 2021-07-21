@@ -4,7 +4,17 @@ const HttpErrors = require("../models/Http-errors");
 const Users = require("../models/users");
 
 const getUsers = async (req, res, next) => {
-  res.json({ users: DUMMY_USERS });
+  let allUser;
+  try {
+    allUser = await Users.find({}, "email name");
+  } catch (err) {
+    const error = new HttpErrors(
+      "can't find user please try again later!",
+      500
+    );
+  }
+
+  res.json({ users: allUser.map((user) => user.toObject({ getters: true })) });
 };
 
 const login = async (req, res, next) => {
@@ -13,7 +23,6 @@ const login = async (req, res, next) => {
 
   try {
     existingUser = await Users.find({ email: email });
-    
   } catch (err) {
     const error = new HttpErrors("could not find user!", 404);
     return next(error);
@@ -41,12 +50,13 @@ const signup = async (req, res, next) => {
     name,
     email,
     password,
-    image:"https://phantom-marca.unidadeditorial.es/6b6ff14954a49532a9f7712e50a8d5df/resize/1320/f/jpg/assets/multimedia/imagenes/2020/12/09/16075352646388.jpg",
+    image:
+      "https://phantom-marca.unidadeditorial.es/6b6ff14954a49532a9f7712e50a8d5df/resize/1320/f/jpg/assets/multimedia/imagenes/2020/12/09/16075352646388.jpg",
     places,
   });
 
   try {
-     await newUser.save(newUser);
+    await newUser.save(newUser);
   } catch (err) {
     const error = new HttpErrors("failed to sign up", 400);
     return next(error);
